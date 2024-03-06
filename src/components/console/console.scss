@@ -5,6 +5,14 @@ $background-console-color: black;
 $text-console-text-size: 16px;
 $text-console-line-height: 20px;
 
+.console-text-attributes {
+    font-size: $text-console-text-size;
+    line-height: $text-console-line-height;
+    letter-spacing: 0px;
+
+    white-space: pre-wrap;
+}
+
 .console-container {
     position: relative;
     height: 100%;
@@ -41,9 +49,8 @@ $text-console-line-height: 20px;
 }
 
 .console-output-line {
+    @extend .console-text-attributes;
     padding-left: 2.5px;
-    font-size: $text-console-text-size;
-    line-height: $text-console-line-height;
 }
 
 .console-input-container {
@@ -54,16 +61,28 @@ $text-console-line-height: 20px;
 }
 
 .console-input-prompt {
-    font-size: $text-console-text-size;
-    line-height: $text-console-line-height;
-    white-space: pre-wrap;
+    @extend .console-text-attributes;
 }
 
 .console-input {
+    @extend .console-text-attributes;
     grid-column: 2;
-    background: $background-console-color;
-    font-size: $text-console-text-size;
-    line-height: $text-console-line-height;
+
+    background: transparent;
+    caret-color: $foreground-secondary;
     outline: none;
+
     padding-left: 2.5px;
+
+    box-shadow: none;
+    transition: all 1s ease-in-out;
+}
+
+.input-highlight {
+    box-shadow: 0px 10px 50px 0px rgba($background-secondary, 1);
+    transition: all 0.5s ease-in-out;
+}
+
+.console-input::selection {
+    background-color: $foreground-secondary;
 }

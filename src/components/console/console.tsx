@@ -8,9 +8,11 @@ import { IExecuteInputRequest } from '@/app/lib/models/executeinput.request';
 
 export default function Console({ output, setOutput, response, setResponse }: { output: string, setOutput: Dispatch<SetStateAction<string>>, response?: IExecuteResponse, setResponse: Dispatch<SetStateAction<IExecuteResponse | undefined>> }) {
     const bottomRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const [prompt, setPrompt] = useState<string | null>('')
     const [input, setInput] = useState<string>('')
+    const [focus, setFocus] = useState<string>('')
 
     async function executeInput() {
         if (response) {
@@ -77,6 +79,13 @@ export default function Console({ output, setOutput, response, setResponse }: { 
     useEffect(() => {
         if (response) {
             setPrompt(response.prompt)
+            if (inputRef.current) {
+                inputRef.current.focus();
+                setFocus("input-highlight")
+                setTimeout(() => {
+                    setFocus('')
+                }, 2500);
+            }
         }
     }, [response])
 
@@ -98,12 +107,13 @@ export default function Console({ output, setOutput, response, setResponse }: { 
                             { prompt }
                         </span>
                         <input
-                            className="console-input"
+                            className={`console-input ${focus}`}
                             value={input}
                             onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
                             autoComplete="off"
                             spellCheck="false"
+                            ref={inputRef}
                         />
                     </div>
                 }
