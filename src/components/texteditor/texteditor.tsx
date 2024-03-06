@@ -10,7 +10,7 @@ export default function TextEditor({ code, setCode }: { code: string, setCode: D
     };
 
     const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Tab') {
+        if (event.key === "Tab") {
             event.preventDefault();
             const textarea = textAreaRef.current;
             if (textarea) {
@@ -30,6 +30,31 @@ export default function TextEditor({ code, setCode }: { code: string, setCode: D
         return code.split("\n").map((_, index) => index + 1);
     };
 
+    // const rules = [
+    //     { pattern: /\b(true|false)\b/g, className: "keyword" },
+    //     { pattern: /"(\\.|[^"\\])*"/g, className: "string" },
+    // ];
+
+    // function applyHighlight(value: string) {
+    //     const lines = value.split("\n");
+
+    //     const elements = lines.map((line, index) => {
+    //         const subElements = []
+            
+    //         subElements.push(
+    //             <span className="type-text">{line ? line : ' '}</span>
+    //         )
+
+    //         return (
+    //             <span key={index} className="highlighted-line">
+    //                 { subElements }
+    //             </span>
+    //         )
+    //     });
+
+    //     return elements;
+    // }
+
     return (
         <div className="test-editor-main-container">
             <div className="text-editor-container">
@@ -40,15 +65,22 @@ export default function TextEditor({ code, setCode }: { code: string, setCode: D
                         </div>
                     ))}
                 </div>
-                <textarea
-                    className="text-editor-input"
-                    value={code}
-                    onChange={handleCodeChange}
-                    onKeyDown={handleKeyDown}
-                    autoComplete="off"
-                    spellCheck="false"
-                    ref={textAreaRef}
-                />
+                <div className="text-editor-input-container">
+                    {/* <div className="text-editor-input-backdrop">
+                        { applyHighlight(code).map((element) => (
+                            element
+                        )) }
+                    </div> */}
+                    <textarea
+                        className="text-editor-input"
+                        value={code}
+                        onChange={handleCodeChange}
+                        onKeyDown={handleKeyDown}
+                        autoComplete="off"
+                        spellCheck="false"
+                        ref={textAreaRef}
+                    />
+                </div>
             </div>
         </div>
     );
