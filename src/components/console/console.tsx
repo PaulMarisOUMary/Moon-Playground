@@ -23,7 +23,6 @@ export default function Console({ output, setOutput, response, setResponse }: { 
                 `${ROUTE_API_BASE}/execute/input`,
                 {
                     method: "POST",
-                    mode: "no-cors",
                     headers: {
                         "Content-Type": "application/json",
                     },

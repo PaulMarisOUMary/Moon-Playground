@@ -28,7 +28,6 @@ export default function Home() {
 			`${ROUTE_API_BASE}/execute`,
 			{
 				method: "POST",
-				mode: "no-cors",
 				headers: {
 					"Content-Type": "application/json",
 				},
