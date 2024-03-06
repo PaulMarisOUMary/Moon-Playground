@@ -1,0 +1,68 @@
+@import '@/app/styles/colors.scss';
+
+$background-console-color: black;
+
+$text-console-text-size: 16px;
+$text-console-line-height: 20px;
+
+.console-container {
+    position: relative;
+    height: 100%;
+    background: $background-console-color;
+
+    border-left: 2px solid $background-secondary;
+}
+
+.console-container:hover .console-hover-button {
+    opacity: 1;
+}
+
+.console-hover-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.console-hover-button:hover {
+    color: lightcoral;
+}
+
+.console-title {
+    padding: 5px 0 5px 10px;
+    height: 40px;
+    text-decoration: underline;
+}
+
+.console-output-container {
+    height: calc(100% - 40px);
+    overflow: auto;
+}
+
+.console-output-line {
+    padding-left: 2.5px;
+    font-size: $text-console-text-size;
+    line-height: $text-console-line-height;
+}
+
+.console-input-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding-left: 2.5px;
+}
+
+.console-input-prompt {
+    font-size: $text-console-text-size;
+    line-height: $text-console-line-height;
+}
+
+.console-input {
+    grid-column: 2;
+    background: $background-console-color;
+    font-size: $text-console-text-size;
+    line-height: $text-console-line-height;
+    outline: none;
+    padding-left: 2.5px;
+}

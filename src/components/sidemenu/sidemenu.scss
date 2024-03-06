@@ -1,0 +1,22 @@
+@import '@/app/styles/colors.scss';
+
+.home-sidemenu {
+    max-width: 300px;
+    width: 15%;
+    overflow-y: auto;
+
+    padding: 5px 0 2.5px 5px;
+}
+
+.home-sidemenu-embeded {
+    padding: 5px 0 5px 15px;
+}
+
+.home-sidemenu-button-template {
+    display: block;
+    text-align: left;
+}
+
+.home-sidemenu-button-template:hover {
+    color: $foreground-secondary;
+}

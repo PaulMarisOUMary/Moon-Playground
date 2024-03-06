@@ -1,0 +1,58 @@
+@import '@/app/styles/colors.scss';
+
+$text-editor-text-size: 18px;
+$text-editor-line-height: 20px;
+
+.test-editor-main-container {
+    overflow-y: auto;
+    height: 100%;
+    background-color: $background-darkgrey-super-dark;
+}
+
+.text-editor-container {
+    display: flex;
+    min-height: 100%;
+}
+
+.text-editor-line-numbers {
+    min-width: 30px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    background-color: $background-secondary;
+}
+
+.text-editor-line-number {
+    display: block;
+    font-size: $text-editor-text-size;
+    line-height: $text-editor-line-height;
+
+    font-family: "Roboto Mono", monospace;
+    color: $foreground-secondary;
+
+    padding-right: 5px;
+}
+
+.text-editor-input {
+    flex-grow: 1;
+    font-size: $text-editor-text-size;
+    line-height: $text-editor-line-height;
+    white-space: nowrap;
+    overflow-y: hidden;
+
+    background-color: transparent;
+    font-family: "Roboto Mono", monospace;
+    color: $foreground-main;
+
+    padding-left: 2.5px;
+    
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+}

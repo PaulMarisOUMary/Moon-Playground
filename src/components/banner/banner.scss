@@ -1,0 +1,23 @@
+@import '@/app/styles/colors.scss';
+@import '@/app/styles/home.scss';
+
+.home-banner {
+    height: $home-banner-height;
+    border-bottom: 2px solid $background-secondary;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.home-banner-root:hover {
+    color: $foreground-secondary;
+}
+
+.home-banner-title {
+    font-size: 20px;
+}
+
+.home-banner-run:hover {
+    color: mediumseagreen;
+}

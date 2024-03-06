@@ -1,0 +1,23 @@
+@import '@/app/styles/colors.scss';
+
+$home-banner-height: 50px;
+
+.home-container {
+    display: flex;
+    height: calc(100vh - $home-banner-height);
+}
+
+.home-playground-container {
+    flex: 1;
+    display: flex;
+    height: 100%;
+}
+
+.home-playground-ide {
+    flex: 1;
+    display: flex;
+}
+
+.home-playground-ide-containers {
+    flex: 1;
+}
