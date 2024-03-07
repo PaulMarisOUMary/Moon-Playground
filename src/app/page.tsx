@@ -15,6 +15,8 @@ import "@/app/styles/home.scss";
 
 export default function Home() {
 
+    const [menu, setMenu] = useState<boolean>(true);
+
 	const [code, setCode] = useState('')
 	const [output, setOutput] = useState('')
 	const [response, setResponse] = useState<IExecuteResponse | undefined>(undefined)
@@ -54,10 +56,13 @@ export default function Home() {
 
 	return (
 		<>
-			<Banner runFunc={execute}/>
+			<Banner runFunc={execute} menu={menu} setMenu={setMenu}/>
 			<div className="home-container">
 				<div className="home-playground-container">
-					<SideMenu setCode={setCode}/>
+					<SideMenu 
+						setCode={setCode} 
+						menu={menu}
+					/>
 					<div className="home-playground-ide">
 						<div className="home-playground-ide-containers">
 							<TextEditor code={code} setCode={setCode}/>
