@@ -21,3 +21,24 @@
 .home-banner-run:hover {
     color: mediumseagreen;
 }
+
+.home-banner-loader {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    animation: load 2.5s linear infinite alternate;
+}
+
+@keyframes load {
+    0% {
+        box-shadow: inset 3.5px -3.5px 0 mediumseagreen;
+    }
+
+    25% {
+        box-shadow: inset 3.5px -3.5px 0 mediumseagreen;
+    }
+
+    100% {
+        box-shadow: inset 10px -10px 0 $background-main;
+    }
+}

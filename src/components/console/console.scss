@@ -53,6 +53,10 @@ $text-console-line-height: 20px;
     padding-left: 2.5px;
 }
 
+.console-error {
+    color: lightcoral;
+}
+
 .console-input-container {
     display: grid;
     grid-template-columns: auto 1fr;

@@ -1,56 +1,17 @@
 import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useEffect, useRef, useState } from 'react';
 
 import { IExecuteResponse } from '@/app/lib/models/execute.response';
-import { ROUTE_API_BASE } from '@/app/lib/routes/routes';
+import { ExecuteInputRequest } from '@/app/lib/requests';
 
 import '@/components/console/console.scss'
-import { IExecuteInputRequest } from '@/app/lib/models/executeinput.request';
 
-export default function Console({ output, setOutput, response, setResponse }: { output: string, setOutput: Dispatch<SetStateAction<string>>, response?: IExecuteResponse, setResponse: Dispatch<SetStateAction<IExecuteResponse | undefined>> }) {
+export default function Console({ output, setOutput, response, setResponse, errors, setErrors, setRunning }: { output: string, setOutput: Dispatch<SetStateAction<string>>, response?: IExecuteResponse, setResponse: Dispatch<SetStateAction<IExecuteResponse | undefined>>, errors: any[], setErrors: Dispatch<SetStateAction<any[]>>, setRunning: Dispatch<SetStateAction<boolean>> }) {
     const bottomRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [prompt, setPrompt] = useState<string | null>('')
     const [input, setInput] = useState<string>('')
     const [focus, setFocus] = useState<string>('')
-
-    async function executeInput() {
-        if (response) {
-            const data: IExecuteInputRequest = {
-                session_code: response.session_code,
-                input: input,
-            };
-    
-            const fetch_response = await fetch(
-                `${ROUTE_API_BASE}/execute/input`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            )
-    
-            if (!fetch_response.ok) {
-                // error handling
-            }
-
-            const responseData: IExecuteResponse = await fetch_response.json();
-
-            if (responseData.status === "waiting") {
-                setResponse(responseData)
-            } else {
-                setResponse(undefined)
-            }
-
-            if (responseData.output === '') {
-                setOutput('');
-            } else {
-                setOutput(responseData.output);
-            }
-        }
-    }
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInput(event.target.value);
@@ -59,17 +20,43 @@ export default function Console({ output, setOutput, response, setResponse }: { 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            executeInput()
+            if (response) {
+                ExecuteInputRequest(
+                    input,
+                    response,
+                    setOutput,
+                    setErrors,
+                    setResponse,
+                    setRunning
+                )
+            }
             setInput('')
         }
     };
 
     const clearAll = () => {
         setOutput('')
+        setErrors([])
     };
 
     const getLineNumbers = () => {
         return output.split("\n");
+    };
+
+    const getErrors = () => {
+        var return_error: any[] = []
+        errors.map((item, index) => {
+            if (Array.isArray(item)) {
+                item.forEach((value) => {
+                    return_error.push(
+                        `Syntax error '${value[0]}' on line: ${value[1]}`
+                    )
+                });
+            } else {
+                return_error.push(item)
+            }
+        });
+        return return_error
     };
 
     useEffect(() => {
@@ -91,16 +78,21 @@ export default function Console({ output, setOutput, response, setResponse }: { 
 
     return (
         <div className="console-container">
-            { output &&
+            { (output || errors.length > 0) &&
                 <button className="console-hover-button" onClick={ clearAll }>Clear</button>
             }
             <h2 className="console-title">Console output</h2>
             <div className="console-output-container">
                 { getLineNumbers().map((line, index) => (
-                    <div key={index} className="console-output-line">
+                    <div key={`output-${index}`} className="console-output-line">
                         {line}
                     </div>
                 ))}
+                {
+                    getErrors().map((item, index) => (
+                        <div key={`error-${index}`} className="console-output-line console-error">{String(item)}</div>
+                    ))
+                }
                 { response &&
                     <div className="console-input-container">
                         <span className="console-input-prompt">

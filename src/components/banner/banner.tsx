@@ -1,9 +1,8 @@
-import Link from 'next/link';
 import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 
 import '@/components/banner/banner.scss'
 
-export default function Banner({ runFunc, menu, setMenu }: { runFunc: MouseEventHandler<HTMLButtonElement>, menu: boolean, setMenu: Dispatch<SetStateAction<boolean>> }) {
+export default function Banner({ runFunc, menu, setMenu, running }: { runFunc: MouseEventHandler<HTMLButtonElement>, menu: boolean, setMenu: Dispatch<SetStateAction<boolean>>, running: boolean }) {
     return (
         <div className="home-banner">
             <div className="home-banner-left">
@@ -13,7 +12,12 @@ export default function Banner({ runFunc, menu, setMenu }: { runFunc: MouseEvent
                 <h1 className="home-banner-title">Moon</h1>
             </nav>
             <div className="home-banner-right">
-                <button className="home-banner-run" onClick={runFunc}>Run</button>
+                { running
+                    ?
+                    <div className="home-banner-loader"></div>
+                    :
+                    <button className="home-banner-run" onClick={runFunc}>Run</button>
+                }
             </div>
         </div>
     );

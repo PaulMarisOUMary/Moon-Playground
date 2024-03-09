@@ -3,5 +3,5 @@ export declare interface IExecuteResponse {
     status: "completed" | "waiting" | "error",
     prompt: string | null,
     output: string,
-    errors: string | null,
+    errors: any[],
 }

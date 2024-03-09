@@ -6,8 +6,7 @@ import Console from "@/components/console/console";
 import TextEditor from "@/components/texteditor/texteditor";
 
 import { IExecuteResponse } from "./lib/models/execute.response";
-import { IExecuteRequest } from "./lib/models/execute.request";
-import { ROUTE_API_BASE } from "./lib/routes/routes";
+import { ExecuteRequest } from "./lib/requests";
 
 import { useState } from "react";
 
@@ -16,47 +15,25 @@ import "@/app/styles/home.scss";
 export default function Home() {
 
     const [menu, setMenu] = useState<boolean>(true);
+    const [running, setRunning] = useState<boolean>(false);
 
 	const [code, setCode] = useState('')
 	const [output, setOutput] = useState('')
+	const [errors, setErrors] = useState<any[]>([])
 	const [response, setResponse] = useState<IExecuteResponse | undefined>(undefined)
 
-	async function execute() {
-		const data: IExecuteRequest = {
-			source_code: code,
-		};
-
-		const fetch_response = await fetch(
-			`${ROUTE_API_BASE}/execute`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			}
-		)
-
-		if (!fetch_response.ok) {
-			// error handling
-		}
-
-		const responseData: IExecuteResponse = await fetch_response.json();
-
-		if (responseData.status === "waiting") {
-			setResponse(responseData)
-		}
-
-		if (responseData.output === '') {
-			setOutput('');
-		} else {
-			setOutput(responseData.output);
-		}
+	async function sendExecute() {
+		ExecuteRequest(code, setOutput, setErrors, setResponse, setRunning);
 	}
 
 	return (
 		<>
-			<Banner runFunc={execute} menu={menu} setMenu={setMenu}/>
+			<Banner
+				runFunc={sendExecute}
+				menu={menu}
+				setMenu={setMenu}
+				running={running}
+			/>
 			<div className="home-container">
 				<div className="home-playground-container">
 					<SideMenu 
@@ -71,8 +48,11 @@ export default function Home() {
 							<Console 
 								output={output} 
 								setOutput={setOutput}
+								errors={errors}
+								setErrors={setErrors}
 								response={response}
 								setResponse={setResponse}
+								setRunning={setRunning}
 							/>
 						</div>
 					</div>
