@@ -78,7 +78,7 @@ export default function Console({ output, setOutput, response, setResponse, erro
 
     return (
         <div className="console-container">
-            { (output || errors.length > 0) &&
+            { (output || (errors && errors.length > 0)) &&
                 <button className="console-hover-button" onClick={ clearAll }>Clear</button>
             }
             <h2 className="console-title">Console output</h2>

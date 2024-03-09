@@ -77,6 +77,12 @@ async function handleRequest(
     .then(async (response) => {
         const responseData: IExecuteResponse = await response.json()
 
+        if (response.status == 400) {
+            setErrors(["Input Timeout: your response was not received within the allowed time"]);
+            setResponse(undefined);
+            return;
+        }
+
         setOutput(responseData.output);
 
         if (responseData.status === "waiting") {
