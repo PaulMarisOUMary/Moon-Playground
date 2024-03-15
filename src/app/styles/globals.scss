@@ -4,6 +4,10 @@
 
 @import '@/app/styles/colors.scss';
 
+*::selection {
+  background-color: $foreground-secondary;
+}
+
 body {
   color: $foreground-main;
   background: $background-main;

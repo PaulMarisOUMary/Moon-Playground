@@ -70,10 +70,6 @@ $text-editor-line-height: 20px;
     resize: none;
 }
 
-.text-editor-input::selection {
-    background-color: $foreground-secondary;
-}
-
 // Synthax hightlight
 
 // .text-editor-input-backdrop {
