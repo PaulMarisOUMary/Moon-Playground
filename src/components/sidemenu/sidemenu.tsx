@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
 
-import { fizzbuzz, guess_game, guess_game_recursive } from '@/app/lib/moon-templates/templates';
+import { fizzbuzz, guess_game, guess_game_recursive, is_prime } from '@/app/lib/moon-templates/templates';
 import { builtin, comments, conditional, expressions, function_examples, primitives, while_loop } from '@/app/lib/moon-templates/syntax';
 
 import '@/components/sidemenu/sidemenu.scss'
@@ -47,6 +47,7 @@ export default function SideMenu({ setCode, menu }: { setCode: Dispatch<SetState
                     <button className="home-sidemenu-hover" onClick={() => setCode(fizzbuzz)}>FizzBuzz</button>
                     <button className="home-sidemenu-hover" onClick={() => setCode(guess_game)}>GuessGame</button>
                     <button className="home-sidemenu-hover" onClick={() => setCode(guess_game_recursive)}>GuessGame (Recursive)</button>
+                    <button className="home-sidemenu-hover" onClick={() => setCode(is_prime)}>Prime Numbers</button>
                 </div>
             </div>
         </div>
