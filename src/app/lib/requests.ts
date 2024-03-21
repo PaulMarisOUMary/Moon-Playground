@@ -75,14 +75,30 @@ async function handleRequest(
         }
     )
     .then(async (response) => {
-        const responseData: IExecuteResponse = await response.json()
 
-        if (response.status == 400) {
-            setErrors(["Input Timeout: your response was not received within the allowed time"]);
+        if (response.status >= 400 && response.status < 500) {
+            setOutput('')
+            let errorMessage = "Unknown error occurred";
+            switch (response.status) {
+                case 400:
+                    errorMessage = "Input Timeout: your response was not received within the allowed time";
+                    break;
+                case 429:
+                    errorMessage = "Rate limit exceeded: Your request has exceeded the allowed rate limit";
+                    break;
+                default:
+                    const errorData = await response.json()
+                    if (errorData && errorData.detail)
+                        errorMessage = errorData.detail;
+                    break;
+
+            }
+            setErrors([errorMessage])
             setResponse(undefined);
             return;
         }
 
+        const responseData: IExecuteResponse = await response.json()
         setOutput(responseData.output);
 
         if (responseData.status === "waiting") {
