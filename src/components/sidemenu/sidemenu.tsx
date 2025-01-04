@@ -62,7 +62,7 @@ export default function SideMenu({ setCode, menu }: { setCode: Dispatch<SetState
                         href="https://github.com/PaulMarisOUMary/Moon-Playground" 
                         rel="noopener noreferrer" 
                         target="_blank"
-                    >Moon's Playground</Link>
+                    >Moon&apos;s Playground</Link>
                     <Link 
                         className="home-sidemenu-hover" 
                         href="https://github.com/PaulMarisOUMary/Moon-VSCode-Extension" 
