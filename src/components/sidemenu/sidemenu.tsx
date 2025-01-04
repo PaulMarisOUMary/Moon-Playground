@@ -49,6 +49,27 @@ export default function SideMenu({ setCode, menu }: { setCode: Dispatch<SetState
                     <button className="home-sidemenu-hover" onClick={() => setCode(guess_game_recursive)}>GuessGame (Recursive)</button>
                     <button className="home-sidemenu-hover" onClick={() => setCode(is_prime)}>Prime Numbers</button>
                 </div>
+                <h3>Related Projects</h3>
+                <div className="home-sidemenu-embeded">
+                    <Link 
+                        className="home-sidemenu-hover" 
+                        href="https://github.com/PaulMarisOUMary/Moon-API" 
+                        rel="noopener noreferrer" 
+                        target="_blank"
+                    >Moon API</Link>
+                    <Link 
+                        className="home-sidemenu-hover" 
+                        href="https://github.com/PaulMarisOUMary/Moon-Playground" 
+                        rel="noopener noreferrer" 
+                        target="_blank"
+                    >Moon's Playground</Link>
+                    <Link 
+                        className="home-sidemenu-hover" 
+                        href="https://github.com/PaulMarisOUMary/Moon-VSCode-Extension" 
+                        rel="noopener noreferrer" 
+                        target="_blank"
+                    >VSCode Extension</Link>
+                </div>
             </div>
         </div>
     );
