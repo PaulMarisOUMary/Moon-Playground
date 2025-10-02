@@ -15,7 +15,7 @@ export default function Banner({ runFunc, running, setMenu, menu }: BannerProps)
     return (
         <div className="home-banner">
             <div className="home-banner-left">
-                <button className="home-banner-root" onClick={() => setMenu(!menu)}>/</button>
+                <button className="home-banner-root" onClick={() => setMenu(!menu)}>/ {menu ? "Hide" : "Show"}</button>
             </div>
             <nav className="home-banner-nav">
                 <h1 className="home-banner-title">Moon</h1>

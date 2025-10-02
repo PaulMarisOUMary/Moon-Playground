@@ -8,7 +8,7 @@ import TextEditor from "@/components/texteditor/texteditor";
 import { IExecuteResponse } from "./lib/models/execute.response";
 import { ExecuteRequest } from "./lib/requests";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { fizzbuzz } from "@/app/lib/moon-templates/templates";
 
@@ -27,6 +27,12 @@ export default function Home() {
 	async function sendExecute() {
 		ExecuteRequest(code, setOutput, setErrors, setResponse, setRunning);
 	}
+
+	useEffect(() => {
+		if (window.innerWidth <= 768) {
+			setMenu(false);
+		}
+	}, []);
 
 	return (
 		<>
