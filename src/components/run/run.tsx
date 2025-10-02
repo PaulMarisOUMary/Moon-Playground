@@ -12,7 +12,7 @@ export default function RunButton({ onClick, running }: RunButtonProps) {
     <div className="run-loader"></div>
   ) : (
     <button className="run-button" onClick={onClick}>
-      Run
+      ▷ Run
     </button>
   );
 }
