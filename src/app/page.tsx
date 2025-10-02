@@ -3,7 +3,8 @@
 import Banner from "@/components/banner/banner";
 import SideMenu from "@/components/sidemenu/sidemenu";
 import Console from "@/components/console/console";
-import TextEditor from "@/components/texteditor/texteditor";
+// import TextEditor from "@/components/texteditor/texteditor";
+import MirrorEditor from "@/components/mirroreditor/mirroreditor";
 
 import { IExecuteResponse } from "./lib/models/execute.response";
 import { ExecuteRequest } from "./lib/requests";
@@ -50,8 +51,14 @@ export default function Home() {
 					/>
 					<div className="home-playground-ide">
 						<div className="home-playground-ide-containers">
-							<TextEditor 
+							{/* <TextEditor 
 								code={code} 
+								setCode={setCode}
+								runFunc={sendExecute}
+								running={running}
+							/> */}
+							<MirrorEditor
+								code={code}
 								setCode={setCode}
 								runFunc={sendExecute}
 								running={running}

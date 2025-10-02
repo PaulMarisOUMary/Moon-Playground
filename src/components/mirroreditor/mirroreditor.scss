@@ -1,0 +1,33 @@
+@import '@/app/styles/colors.scss';
+
+.mirror-editor-main-container {
+    position: relative;
+    overflow-y: auto;
+    height: 100%;
+    background-color: $background-darkgrey-super-dark;
+}
+
+.mirror-editor-container {
+    display: flex;
+    min-height: 100%;
+}
+
+.mirror-editor {
+    width: 100%;
+    height: 100%;
+}
+
+.mirror-editor-main-container:hover .mirror-run-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mirror-run-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    z-index: 5;
+}
