@@ -16,8 +16,20 @@ $home-banner-height: 50px;
 .home-playground-ide {
     flex: 1;
     display: flex;
+    flex-direction: row;
 }
 
 .home-playground-ide-containers {
     flex: 1;
+}
+
+@media (max-width: 768px) {
+    .home-playground-ide {
+        flex-direction: column;
+    }
+
+    .home-playground-ide-containers {
+        flex: none;
+        height: 50%;
+    }
 }

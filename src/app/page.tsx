@@ -10,6 +10,8 @@ import { ExecuteRequest } from "./lib/requests";
 
 import { useState } from "react";
 
+import { fizzbuzz } from "@/app/lib/moon-templates/templates";
+
 import "@/app/styles/home.scss";
 
 export default function Home() {
@@ -17,7 +19,7 @@ export default function Home() {
     const [menu, setMenu] = useState<boolean>(true);
     const [running, setRunning] = useState<boolean>(false);
 
-	const [code, setCode] = useState('')
+	const [code, setCode] = useState(fizzbuzz)
 	const [output, setOutput] = useState('')
 	const [errors, setErrors] = useState<any[]>([])
 	const [response, setResponse] = useState<IExecuteResponse | undefined>(undefined)
