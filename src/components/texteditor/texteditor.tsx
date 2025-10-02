@@ -1,8 +1,17 @@
-import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef } from 'react';
+import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef, MouseEventHandler } from 'react';
+
+import RunButton from "@/components/run/run";
 
 import '@/components/texteditor/texteditor.scss'
 
-export default function TextEditor({ code, setCode }: { code: string, setCode: Dispatch<SetStateAction<string>> }) {
+type TextEditorProps = {
+  code: string;
+  setCode: Dispatch<SetStateAction<string>>;
+  runFunc: MouseEventHandler<HTMLButtonElement>;
+  running: boolean;
+};
+
+export default function TextEditor({ code, setCode, runFunc, running }: TextEditorProps) {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleCodeChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -56,7 +65,10 @@ export default function TextEditor({ code, setCode }: { code: string, setCode: D
     // }
 
     return (
-        <div className="test-editor-main-container">
+        <div className="text-editor-main-container">
+            <div className="text-run-container">
+                <RunButton onClick={runFunc} running={running} />
+            </div>
             <div className="text-editor-container">
                 <div className="text-editor-line-numbers">
                     {getLineNumbers().map((number) => (

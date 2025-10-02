@@ -30,9 +30,9 @@ export default function Home() {
 		<>
 			<Banner
 				runFunc={sendExecute}
-				menu={menu}
-				setMenu={setMenu}
 				running={running}
+				setMenu={setMenu}
+				menu={menu}
 			/>
 			<div className="home-container">
 				<div className="home-playground-container">
@@ -42,7 +42,12 @@ export default function Home() {
 					/>
 					<div className="home-playground-ide">
 						<div className="home-playground-ide-containers">
-							<TextEditor code={code} setCode={setCode}/>
+							<TextEditor 
+								code={code} 
+								setCode={setCode}
+								runFunc={sendExecute}
+								running={running}
+							/>
 						</div>
 						<div className="home-playground-ide-containers">
 							<Console 

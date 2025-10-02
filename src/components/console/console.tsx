@@ -5,7 +5,17 @@ import { ExecuteInputRequest } from '@/app/lib/requests';
 
 import '@/components/console/console.scss'
 
-export default function Console({ output, setOutput, response, setResponse, errors, setErrors, setRunning }: { output: string, setOutput: Dispatch<SetStateAction<string>>, response?: IExecuteResponse, setResponse: Dispatch<SetStateAction<IExecuteResponse | undefined>>, errors: any[], setErrors: Dispatch<SetStateAction<any[]>>, setRunning: Dispatch<SetStateAction<boolean>> }) {
+type ConsoleProps = {
+    output: string;
+    setOutput: Dispatch<SetStateAction<string>>;
+    response?: IExecuteResponse;
+    setResponse: Dispatch<SetStateAction<IExecuteResponse | undefined>>;
+    errors: any[];
+    setErrors: Dispatch<SetStateAction<any[]>>;
+    setRunning: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function Console({ output, setOutput, response, setResponse, errors, setErrors, setRunning }: ConsoleProps) {
     const bottomRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 

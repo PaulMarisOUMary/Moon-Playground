@@ -6,7 +6,12 @@ import { builtin, comments, conditional, expressions, function_examples, primiti
 
 import '@/components/sidemenu/sidemenu.scss'
 
-export default function SideMenu({ setCode, menu }: { setCode: Dispatch<SetStateAction<string>>, menu: boolean }) {
+type SideMenuProps = {
+  setCode: Dispatch<SetStateAction<string>>;
+  menu: boolean;
+};
+
+export default function SideMenu({ setCode, menu }: SideMenuProps) {
     return (
         <div 
             className={`home-sidemenu ${!menu && "hidden"}`}
