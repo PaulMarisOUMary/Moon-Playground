@@ -4,7 +4,7 @@ import { escapeRegex } from "@/app/lang/utils";
 
 const reserved_keywords = [
   ["action", "ACTION", "✅"],
-  ["and", "AND", "✅"],
+  // ["and", "AND", "✅"],
   ["as", "AS", "✅"],
   ["ask", "ASK", "✅"],
   ["assert", "ASSERT", "❌"],
@@ -24,14 +24,14 @@ const reserved_keywords = [
   ["has", "HAS", "✅"],
   ["if", "IF", "✅"],
   ["in", "IN", "❌"],
-  ["is", "IS", "✅"],
-  ["isnt", "ISNT", "✅"],
+  // ["is", "IS", "✅"],
+  // ["isnt", "ISNT", "✅"],
   ["lambda", "LAMBDA", "❌"],
   ["list", "LIST", "✅"],
-  ["null", "NULL", "✅"],
-  ["not", "NOT", "✅"],
+  // ["null", "NULL", "✅"],
+  // ["not", "NOT", "✅"],
   ["nothing", "NOTHING", "❌"],
-  ["or", "OR", "✅"],
+  // ["or", "OR", "✅"],
   ["pass", "PASS", "❌"],
   ["print", "PRINT", "✅"],
   ["raise", "RAISE", "✅"],
@@ -46,26 +46,33 @@ const reserved_keywords = [
   ["yield", "YIELD", "❌"],
 ];
 
-const arithmeticOps = ["+", "-", "*", "/", "%", "**"];
-const comparisonOps = ["<=", ">=", "<", ">"];
-const logicalOps = ["and", "or", "not", "is", "isnt"];
+const arithmeticOps = ["**", "+", "-", "*", "/", "%"];
+const comparisonOpsSymbols = ["<=", ">=", "<", ">"];
+const comparisonOpsWords = ["is", "isnt"];
+const logicalOps = ["and", "or", "not"];
 
 const arithmeticRegex = new RegExp(
   `(${arithmeticOps.map(escapeRegex).join("|")})`
 );
+
 const comparisonRegex = new RegExp(
-  `(${comparisonOps.map(escapeRegex).join("|")})`
+  `(${comparisonOpsSymbols
+    .map(escapeRegex)
+    .join("|")})|\\b(${comparisonOpsWords.join("|")})\\b`
 );
+
 const logicalRegex = new RegExp(`\\b(${logicalOps.join("|")})\\b`);
 
 const keywords = reserved_keywords
-  .filter(([key, _, mark]) => mark === "✅" && !logicalOps.includes(key))
+  .filter(([_, __, mark]) => mark === "✅")
   .map(([word]) => word);
 
 export const moonLanguage = StreamLanguage.define({
   startState() {
     return {
       inComment: false,
+      expectFunctionName: false,
+      functions: new Set<string>(),
     };
   },
   token(stream, state) {
@@ -100,7 +107,13 @@ export const moonLanguage = StreamLanguage.define({
     // Boolean literals
     // r"\b(true|false)"
     if (stream.match(/\b(true|false)\b/)) {
-      return "atom";
+      return "bool";
+    }
+
+    // Null literals
+    // r"\b(null)"
+    if (stream.match(/\b(null)\b/)) {
+      return "null";
     }
 
     // String literals
@@ -118,17 +131,38 @@ export const moonLanguage = StreamLanguage.define({
     // Integer literals
     // r"[+-]?(?!0[0-9])[0-9]+\b"
     if (stream.match(/[+-]?(?!0[0-9])[0-9]+\b/)) {
-      return "number";
+      return "integer";
     }
 
     // Keywords
-    if (stream.match(new RegExp(`\\b(${keywords.join("|")})\\b`))) {
+    const keywordMatch = stream.match(
+      new RegExp(`\\b(${keywords.join("|")})\\b`)
+    );
+    if (keywordMatch) {
+      if (Array.isArray(keywordMatch) && keywordMatch[0] === "action") {
+        state.expectFunctionName = true;
+      }
       return "keyword";
     }
 
     // Identifiers
     // r"[a-zA-Z_][a-zA-Z_0-9]*|[\U0000231A-\U0001FAF8]"
-    if (stream.match(/^[a-zA-Z_][a-zA-Z_0-9]*|\p{Emoji}/u)) {
+    const identifierMatch = stream.match(/^[a-zA-Z_][a-zA-Z_0-9]*|\p{Emoji}/u);
+    if (identifierMatch) {
+      const name = Array.isArray(identifierMatch)
+        ? identifierMatch[0]
+        : stream.current();
+
+      if (state.expectFunctionName) {
+        state.functions.add(name);
+        state.expectFunctionName = false;
+        return "tagName";
+      }
+
+      if (state.functions.has(name)) {
+        return "tagName";
+      }
+
       return "variableName";
     }
 
