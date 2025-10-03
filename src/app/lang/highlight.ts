@@ -2,22 +2,28 @@ import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { tags as t } from "@lezer/highlight";
 
 const colors = {
-  keyword: "#C792EA",
-  builtin: "#F78C6C",
-  type: "#FFCB6B",
-  operator: "#89DDFF",
-  compare: "#82AAFF",
-  logic: "#E77294",
-  boolean: "#FF9CAC",
-  string: "#C3E88D",
-  number: "#F78C6C",
-  variable: "#82AAFF",
-  function: "#82AAFF",
-  class: "#FFCB6B",
-  commentLine: "#5C6370",
-  commentBlock: "#7F848E",
-  invalid: "#FF5370",
-  meta: "#676E95",
+  keyword: "#B266FF",
+
+  function: "#E28EDC",
+  variable: "#4D90FF",
+
+  type: "#FFB74D",
+
+  boolean: "#57C28D",
+  null: "#38BFA8",
+  integer: "#FF5A3E",
+  float: "#FF814F",
+  string: "#8FD473",
+
+  arithmetic: "#4FC3FF",
+  compare: "#FF7CA1",
+  logic: "#D83A5E",
+
+  commentLine: "#4B515C",
+  commentBlock: "#6C717C",
+
+  invalid: "#FF3B5F",
+  meta: "#595E7A",
 };
 
 export const moonDarkHighlight = HighlightStyle.define([
@@ -25,28 +31,28 @@ export const moonDarkHighlight = HighlightStyle.define([
   { tag: t.keyword, color: colors.keyword },
 
   // Built-ins
-  { tag: t.special(t.variableName), color: colors.builtin },
+  // { tag: t.special(t.variableName), color: colors.builtin },
 
   // Types
-  { tag: t.typeName, color: colors.type },
+  // { tag: t.typeName, color: colors.type },
 
-  // Class & Function identifiers
-  { tag: t.className, color: colors.class, fontWeight: "bold" },
-  { tag: t.function(t.variableName), color: colors.function, fontWeight: "bold" },
+  // Function identifiers
+  { tag: t.tagName, color: colors.function },
 
   // Variables
   { tag: t.variableName, color: colors.variable },
 
-  // Operators
-  { tag: t.operator, color: colors.operator },
+  // // Operators
+  { tag: t.arithmeticOperator, color: colors.arithmetic },
   { tag: t.compareOperator, color: colors.compare },
   { tag: t.logicOperator, color: colors.logic },
 
-  // Literals
-  { tag: t.atom, color: colors.boolean },
+  // // Literals
+  { tag: t.bool, color: colors.boolean },
+  { tag: t.null, color: colors.null },
   { tag: t.string, color: colors.string },
-  { tag: t.number, color: colors.number },
-  { tag: t.float, color: colors.number },
+  { tag: t.integer, color: colors.integer },
+  { tag: t.float, color: colors.float },
 
   // Comments
   { tag: t.lineComment, color: colors.commentLine, fontStyle: "italic" },
@@ -56,7 +62,7 @@ export const moonDarkHighlight = HighlightStyle.define([
   { tag: t.invalid, color: colors.invalid, background: "#2B1D1D" },
 
   // Metadata / Indentation
-  { tag: t.meta, color: colors.meta },
+  // { tag: t.meta, color: colors.meta },
 ]);
 
 export const moonHighlightExtension = syntaxHighlighting(moonDarkHighlight);
