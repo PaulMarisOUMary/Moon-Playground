@@ -81,7 +81,10 @@ async function handleRequest(
             let errorMessage = "Unknown error occurred";
             switch (response.status) {
                 case 400:
-                    errorMessage = "Input Timeout: your response was not received within the allowed time";
+                    errorMessage = "Input Timeout: Your response was not received within the allowed time";
+                    break;
+                case 422:
+                    errorMessage = "Unprocessable Content: Code is invalid or exceeds allowed limits";
                     break;
                 case 429:
                     errorMessage = "Rate limit exceeded: Your request has exceeded the allowed rate limit";
