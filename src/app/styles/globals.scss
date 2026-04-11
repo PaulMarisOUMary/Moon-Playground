@@ -1,8 +1,7 @@
+@use '@/app/styles/colors.scss' as *;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import '@/app/styles/colors.scss';
 
 *::selection {
   background-color: $foreground-secondary;

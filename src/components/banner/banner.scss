@@ -1,5 +1,5 @@
-@import '@/app/styles/colors.scss';
-@import '@/app/styles/home.scss';
+@use '@/app/styles/colors.scss' as *;
+@use '@/app/styles/home.scss' as *;
 
 .home-banner {
     height: $home-banner-height;

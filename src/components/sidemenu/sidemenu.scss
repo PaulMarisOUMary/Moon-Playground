@@ -1,4 +1,4 @@
-@import '@/app/styles/colors.scss';
+@use '@/app/styles/colors.scss' as *;
 
 .home-sidemenu {
     max-width: 350px;
