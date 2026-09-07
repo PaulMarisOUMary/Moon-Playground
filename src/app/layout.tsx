@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 
+import "@/app/styles/tailwind.css";
 import "@/app/styles/globals.scss";
 
 const inter = Inter({ subsets: ["latin"] });
